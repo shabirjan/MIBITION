@@ -1,0 +1,6 @@
+framework module Pods_MIBITIONUITests {
+  umbrella header "Pods-MIBITIONUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
