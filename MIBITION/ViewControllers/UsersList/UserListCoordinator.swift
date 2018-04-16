@@ -16,7 +16,7 @@ class UserListCoordinator: BaseCoordinator<Void> {
         self.parent = parent
     }
     
-    override func start()  {
+    override func start() -> Observable<Void>  {
         let viewModel = UserListViewModel()
         let viewController = UsersListViewController.initFromStoryboard(name: "Main")
         
@@ -26,6 +26,7 @@ class UserListCoordinator: BaseCoordinator<Void> {
             .subscribe(onNext: { [weak self] in self?.showUserDetail(by: $0) })
             .disposed(by: disposeBag)
         parent.pushViewController(viewController, animated: true)
+        return Observable.never()
     }
     
     private func showUserDetail(by id: Int)  {

@@ -32,11 +32,11 @@ class UserDetailViewController: UIViewController, StoryboardInitializable {
         
         // View Model outputs to the View Controller
         viewModel.userDetail.map{$0.userImage}.bind(to: userImage.rx.imageURL).disposed(by: disposeBag)
-        viewModel.userDetail.map{$0.userBio}.bind(to: lblUserBio.rx.text).disposed(by: disposeBag)
-        viewModel.userDetail.map{$0.name}.bind(to: lblUserName.rx.text).disposed(by: disposeBag)
-        viewModel.userDetail.map{$0.userEmail}.bind(to: lblUserEmail.rx.text).disposed(by: disposeBag)
-        viewModel.userDetail.map{$0.userCompany}.bind(to: lblUserCompany.rx.text).disposed(by: disposeBag)
-        viewModel.userDetail.map{$0.userLocation}.bind(to: lblUserLocation.rx.text).disposed(by: disposeBag)
+        viewModel.userDetail.map{$0._userBio ?? "N/A"}.bind(to: lblUserBio.rx.text).disposed(by: disposeBag)
+        viewModel.userDetail.map{$0._name ?? "N/A"}.bind(to: lblUserName.rx.text).disposed(by: disposeBag)
+        viewModel.userDetail.map{$0._userEmail ?? "N/A"}.bind(to: lblUserEmail.rx.text).disposed(by: disposeBag)
+        viewModel.userDetail.map{$0._company ?? "N/A"}.bind(to: lblUserCompany.rx.text).disposed(by: disposeBag)
+        viewModel.userDetail.map{$0._userLocation ?? "N/A"}.bind(to: lblUserLocation.rx.text).disposed(by: disposeBag)
         viewModel.userDetail.map{String($0.userFollowers)}.bind(to: lblUserFollowers.rx.text).disposed(by: disposeBag)
         viewModel.userDetail.map{String($0.userFollowing)}.bind(to: lblUserFollowing.rx.text).disposed(by: disposeBag)
         viewModel.userDetail.map{String($0.publicRepos)}.bind(to: lblUserRepos.rx.text).disposed(by: disposeBag)
@@ -53,5 +53,8 @@ class UserDetailViewController: UIViewController, StoryboardInitializable {
         let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alertController, animated: true)
+    }
+    override func didMove(toParentViewController parent: UIViewController?) {
+        
     }
 }

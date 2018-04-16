@@ -17,8 +17,9 @@ class AppCoordinator : BaseCoordinator<Void> {
         self.root = root
     }
     
-    override func start()  {
+    override func start() -> Observable<Void> {
         let userListCoordinator = UserListCoordinator(parent: root)
          coordinate(to: userListCoordinator)
+        return Observable.never()
     }
 }

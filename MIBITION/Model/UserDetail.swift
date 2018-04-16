@@ -9,27 +9,13 @@
 import Foundation
 
 struct UserDetail: Codable {
-    private let _name: String?
-    var name: String {
-        return _name ?? "No Name"
-    }
-    private let _userLocation: String?
-    var userLocation: String {
-        return _userLocation ?? "N/A"
-    }
-    private let _company: String?
-    var userCompany: String {
-        return _company ?? "N/A"
-    }
+    let _name: String?
+    let _userLocation: String?
+    let _company: String?
     let userImage: String
-    private   let _userEmail: String?
-    var userEmail: String {
-        return _userEmail ?? "N/A"
-    }
-    private let _userBio: String?
-    var userBio: String {
-        return _userBio ?? "N/A"
-    }
+    let _userEmail: String?
+    let _userBio: String?
+    
     let publicRepos: Int
     let publicGists: Int
     let userFollowers: Int

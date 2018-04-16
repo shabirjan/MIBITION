@@ -8,7 +8,7 @@
 
 import Foundation
 import RxSwift
-import RxCocoa
+
 
 enum GitHubServiceError: Error {
     case cannotParse

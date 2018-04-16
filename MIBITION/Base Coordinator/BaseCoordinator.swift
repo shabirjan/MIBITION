@@ -9,7 +9,7 @@
 import Foundation
 import  RxSwift
 
-class  BaseCoordinator<ResultType> {
+class  BaseCoordinator<T> {
    
     /// Utility `DisposeBag` used by the subclasses.
     let disposeBag = DisposeBag()
@@ -29,6 +29,7 @@ class  BaseCoordinator<ResultType> {
     /// - Parameter coordinator: Child coordinator to store.
     private func store<T>(coordinator: BaseCoordinator<T>) {
         childCoordinators[coordinator.identifier] = coordinator
+        
     }
     
     /// Release coordinator from the `childCoordinators` dictionary.
@@ -45,10 +46,13 @@ class  BaseCoordinator<ResultType> {
     func coordinate<T>(to coordinator: BaseCoordinator<T>)  {
         store(coordinator: coordinator)
         coordinator.start()
+        .subscribe(onNext: {[weak self, coordinator] _ in self?.free(coordinator: coordinator)})
+        .disposed(by: disposeBag)
+        
     }
     
     /// Starts job of the coordinator.
-    func start()  {
+    func start() -> Observable<Void> {
         fatalError("Start method should be implemented.")
     }
 }

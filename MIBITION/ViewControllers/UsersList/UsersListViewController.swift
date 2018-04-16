@@ -51,6 +51,7 @@ class UsersListViewController: UIViewController, StoryboardInitializable {
         .bind(to: viewModel.reload)
         .disposed(by: disposeBag)
         
+        
         tableView.rx.modelSelected(UserViewModel.self)
         .bind(to: viewModel.selectUser)
         .disposed(by: disposeBag)

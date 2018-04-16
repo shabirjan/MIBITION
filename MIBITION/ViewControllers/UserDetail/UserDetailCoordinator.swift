@@ -7,7 +7,7 @@
 //
 
 import RxSwift
-
+import UIKit
 class UserDetailCoordinator: BaseCoordinator<Void> {
     
     private let navigationController: UINavigationController
@@ -18,10 +18,16 @@ class UserDetailCoordinator: BaseCoordinator<Void> {
         self.userId = userId
     }
     
-    override func start() {
+    override func start()-> Observable<Void> {
         let viewController = UserDetailViewController.initFromStoryboard(name: "Main")
+        
         let viewModel = UserDetailViewModel(userId: userId)
         viewController.viewModel = viewModel
-       navigationController.pushViewController(viewController, animated: true)
+        navigationController.pushViewController(viewController, animated: true)
+        return viewController.rx.methodInvoked(#selector(UIViewController.didMove(toParentViewController:)))
+            .map { $0[0] is NSNull }
+            .filter { $0 }
+            .map { _ in ()
+        }
     }
 }
